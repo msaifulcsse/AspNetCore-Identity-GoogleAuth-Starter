@@ -1,82 +1,200 @@
-# 🚀 ASP.NET Core Identity & Google Authentication Starter (.NET 9)
+# 🚀 ASP.NET Core 9 Identity + Google OAuth2 Starter
 
-**Project Name:** OAuth2App
-**Author:** M SAIFUL ISLAM (msaifulcsse)
+### ✅ `OAuth2App` — Secure Login (Identity + Google Login) | SQL Server | .NET 9 MVC
 
-A minimal, ready-to-use template demonstrating how to integrate **ASP.NET Core Identity (Individual Accounts)** with **Microsoft SQL Server** and configure **Google OAuth 2.0** external authentication using the latest .NET 9 framework. This project is ideal for developers starting with secure user management.
+A production-ready starter template that integrates:
 
-## ✨ Key Features
+- 🔐 **ASP.NET Core Identity (Individual Accounts)**
+- 🌐 **Google OAuth 2.0 Authentication**
+- 🧠 **ASP.NET Core MVC (.NET 9)**
+- 🗄️ **Microsoft SQL Server**
+- 🎯 **Fully Ready Authentication system with Login/Register UI**
+- 🏗️ Identity scaffolding option to customize UI
 
-* **ASP.NET Core 9 MVC:** Built on the latest stable framework.
-* **Identity Scaffolding:** Uses the built-in Identity UI.
-* **Database:** Configured for MS SQL Server.
-* **Google Authentication:** Pre-configured Google OAuth 2.0 setup.
+Perfect for developers looking to build **secure enterprise-ready authentication systems** fast.
 
 ---
 
-## 🛠️ Getting Started
+## ✨ Features
 
-### 1. Prerequisites
+| Feature | Description |
+|-------|------------|
+🔑 Authentication | ASP.NET Identity + Google OAuth2  
+💾 Database | SQL Server (Local/Cloud)  
+🌍 Framework | .NET 9 MVC  
+📁 Identity UI | Built-in + scaffolding support  
+⚙️ Configurable | appsettings.json based setup  
+🏁 Ready to Run | Just migrate DB + run project  
 
-* .NET 9 SDK (or later)
-* SQL Server (LocalDB, Express, or remote instance)
+---
 
-### 2. Configuration (`appsettings.json`)
+## 📁 Project Structure
 
-Update your `appsettings.json` with your database connection details and Google API credentials.
+```
 
-**A. Database Connection String**
+OAuth2App/
+├── Controllers/
+├── Data/
+├── Views/
+├── appsettings.json
+└── Program.cs
 
-Modify the `DefaultConnection` string. **IMPORTANT:** For local development, it's highly recommended to add `TrustServerCertificate=True` to bypass SSL certificate errors.
+````
+
+---
+
+## 🧰 Prerequisites
+
+| Tool | Version |
+|------|--------|
+✅ .NET SDK | **9.x**  
+✅ SQL Server | LocalDB / Express / Remote  
+✅ EF Core Tools | `dotnet tool install`  
+
+---
+
+## ⚙️ Setup Guide
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/msaifulcsse/AspNetCore-Identity-GoogleAuth-Starter.git
+cd AspNetCore-Identity-GoogleAuth-Starter/OAuth2App
+````
+
+---
+
+### 2️⃣ Update Database Connection
+
+Edit `appsettings.json` 👇
 
 ```json
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost;Database=oauth2_db_dev;User Id=YourDbUser;Password=YourDbPassword;MultipleActiveResultSets=true;TrustServerCertificate=True"
-},
-````
+  "DefaultConnection": "Server=localhost;Database=oauth2_db_dev;User Id=YOUR_DB_USER;Password=YOUR_DB_PASSWORD;MultipleActiveResultSets=true;TrustServerCertificate=True"
+}
+```
 
-**B. Google Authentication Secrets**
+> ⚠ Replace with your SQL credentials
 
-Set your Client ID and Client Secret obtained from the Google Developer Console.
+---
+
+### 3️⃣ Configure Google OAuth Credentials
+
+#### ➤ Go to Google Cloud Console
+
+[https://console.cloud.google.com/](https://console.cloud.google.com/)
+
+**Path:**
+`APIs & Services > Credentials > Create Credentials > OAuth client ID`
+
+Set:
+
+| Key                     | Value                                  |
+| ----------------------- | -------------------------------------- |
+| Application type        | Web application                        |
+| Authorized redirect URI | `https://localhost:5001/signin-google` |
+
+✅ Copy **Client ID** & **Client Secret** → put in `appsettings.json`
 
 ```json
 "Authentication": {
   "Google": {
-    "ClientId": "YOUR_GOOGLE_CLIENT_ID_HERE.apps.googleusercontent.com",
-    "ClientSecret": "YOUR_GOOGLE_CLIENT_SECRET_HERE"
+    "ClientId": "YOUR_CLIENT_ID",
+    "ClientSecret": "YOUR_CLIENT_SECRET"
   }
 }
 ```
 
-### 3\. Run Database Migrations
+---
 
-From the project root directory (`OAuth2App/`):
+### 4️⃣ Run EF Core Migration
 
 ```bash
-# Apply all pending migrations to the SQL Server database
+dotnet tool install --global dotnet-ef
 dotnet ef database update
 ```
 
-### 4\. Run the Application
+> Creates Identity tables + DB
+
+---
+
+### 5️⃣ Run the App 🚀
 
 ```bash
 dotnet run
 ```
 
------
+Open Browser:
 
-## 🌐 Connect with the Author
+```
+https://localhost:5001
+```
 
-  * **Name:** M SAIFUL ISLAM
-  * **Email:** saifulbdjoy@gmail.com
-  * **GitHub:** [msaifulcsse](https://github.com/msaifulcsse/)
-  * **LinkedIn:** [linkedin.com/in/msaifulcsse](https://www.google.com/search?q=https://linkedin.com/in/msaifulcsse)
-  * **Contact:** +8801750-5333131
+Login → you'll see **Google Sign-In button** ✅
 
------
+---
 
-## ⚖️ License
+## 🛠 Optional: Scaffold Identity Pages (for customization)
 
-See the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
+```bash
+dotnet aspnet-codegenerator identity -dc OAuth2App.Data.ApplicationDbContext
+```
 
-````
+This generates:
+
+* Login.cshtml
+* Register.cshtml
+* Manage pages
+* Account controllers
+
+> Edit UI / policies / password rules as needed 🎨
+
+---
+
+## 📸 Preview (Auth Flow)
+
+| Screen         | Description                      |
+| -------------- | -------------------------------- |
+| 🔐 Login       | Username/Password + Google Login |
+| 📝 Register    | Individual account creation      |
+| 🎫 Identity DB | MSSQL tables created by EF       |
+
+---
+
+## 🧪 Test Credentials
+
+✅ Local account signup
+✅ Google login
+✅ Email verified usage supported
+
+---
+
+## 🧠 Pro Tip
+
+Add role support after setup:
+
+```csharp
+services.AddDefaultIdentity<IdentityUser>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+```
+
+---
+
+## 📞 Contact / Community
+
+| Contact     | Link                                                                       |
+| ----------- | -------------------------------------------------------------------------- |
+| 👤 Name     | **M SAIFUL ISLAM**                                                         |
+| 📧 Email    | [saifulbdjoy@gmail.com](mailto:saifulbdjoy@gmail.com)                      |
+| 🌐 GitHub   | [https://github.com/msaifulcsse](https://github.com/msaifulcsse)           |
+| 🔗 LinkedIn | [https://linkedin.com/in/msaifulcsse](https://linkedin.com/in/msaifulcsse) |
+| 📱 Phone    | +8801750-533313                                                            |
+
+---
+
+## 🧾 License
+
+MIT License — Use freely. Credit appreciated ❤️
+
+---
